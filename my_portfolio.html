@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balakrishnan Elangovan | Web Developer Portfolio</title>
+<meta name="description" content="Portfolio of Balakrishnan Elangovan, M.Tech CSE graduate and aspiring Software/Web Developer.">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #262d38;
+    --text: #e6edf3;
+    --muted: #8b96a5;
+    --accent: #4f9cf9;
+    --accent-2: #7ee0c3;
+    --radius: 14px;
+  }
+  :root[data-theme="light"] {
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --border: #e1e5ea;
+    --text: #14181f;
+    --muted: #5d6877;
+    --accent: #1f6feb;
+    --accent-2: #0f9d7a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    transition: background .3s, color .3s;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-weight: 700; font-size: 1.1rem; color: var(--text); }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 22px; align-items: center; }
+  .nav-links a { color: var(--muted); font-size: .92rem; }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  #theme-toggle {
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem;
+  }
+  .menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+  /* Hero */
+  .hero { padding: 110px 0 90px; }
+  .hero .tag {
+    display: inline-block; padding: 6px 14px; border: 1px solid var(--border);
+    border-radius: 999px; font-size: .85rem; color: var(--accent-2); margin-bottom: 22px;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); line-height: 1.1; margin-bottom: 18px; letter-spacing: -.02em; }
+  .hero h1 .grad {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { color: var(--muted); max-width: 640px; font-size: 1.1rem; margin-bottom: 32px; }
+  .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: .95rem;
+    border: 1px solid var(--border); color: var(--text); background: var(--surface); cursor: pointer;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn:hover { text-decoration: none; transform: translateY(-2px); transition: transform .2s; }
+
+  /* Sections */
+  section { padding: 70px 0; }
+  .section-title { font-size: 1.8rem; margin-bottom: 8px; }
+  .section-sub { color: var(--muted); margin-bottom: 36px; }
+  .section-title::before { content: "// "; color: var(--accent); }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    transition: transform .2s, border-color .2s;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+
+  /* About */
+  .about-grid { display: grid; gap: 28px; grid-template-columns: 1.6fr 1fr; align-items: start; }
+  .stat { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: .95rem; }
+  .stat:last-child { border-bottom: none; }
+  .stat span:first-child { color: var(--muted); }
+
+  /* Timeline */
+  .timeline { border-left: 2px solid var(--border); padding-left: 28px; display: grid; gap: 28px; }
+  .tl-item { position: relative; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -37px; top: 8px; width: 14px; height: 14px;
+    border-radius: 50%; background: var(--accent); border: 3px solid var(--bg);
+  }
+  .tl-date { color: var(--accent-2); font-size: .85rem; font-family: ui-monospace, monospace; }
+  .tl-item h3 { margin: 4px 0 2px; font-size: 1.15rem; }
+  .tl-org { color: var(--muted); margin-bottom: 8px; }
+  .tl-item ul { padding-left: 18px; color: var(--muted); }
+  .tl-item li { margin-bottom: 4px; }
+
+  /* Projects */
+  .project h3 { margin-bottom: 8px; font-size: 1.15rem; }
+  .project p { color: var(--muted); margin-bottom: 16px; font-size: .95rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: .8rem; padding: 4px 12px; border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+
+  /* Skills */
+  .skill-card h3 { font-size: 1rem; margin-bottom: 14px; color: var(--accent-2); }
+
+  /* Certs */
+  .cert-list { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .cert { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+  .cert .dot { color: var(--accent-2); font-size: 1.1rem; line-height: 1.4; }
+  .cert small { color: var(--muted); display: block; }
+
+  /* Contact */
+  .contact-card { text-align: center; padding: 48px 24px; }
+  .contact-card p { color: var(--muted); max-width: 520px; margin: 10px auto 26px; }
+  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  footer { text-align: center; color: var(--muted); padding: 30px 0 40px; font-size: .88rem; border-top: 1px solid var(--border); }
+
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 760px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .menu-btn { display: block; }
+    .nav-links {
+      display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column;
+      background: var(--bg); padding: 18px 24px; border-bottom: 1px solid var(--border); gap: 16px; align-items: flex-start;
+    }
+    .nav-links.open { display: flex; }
+    .hero { padding: 70px 0 50px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#home" class="logo">Bala<span>.dev</span></a>
+    <button class="menu-btn" id="menu-btn" aria-label="Toggle menu">☰</button>
+    <div class="nav-links" id="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+      <button id="theme-toggle" aria-label="Toggle theme">🌓</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="container">
+    <span class="tag">● Open to opportunities</span>
+    <h1>Hi, I'm <span class="grad">Balakrishnan Elangovan</span><br>Software &amp; Web Developer</h1>
+    <p>M.Tech in Computer Science and Engineering with hands-on experience in full-stack web development, Java applications, and applied machine learning in Python.</p>
+    <div class="btns">
+      <a class="btn primary" href="#projects">View Projects</a>
+      <a class="btn" href="#contact">Get in Touch</a>
+      <!-- Optional: put your resume PDF next to this file and uncomment -->
+      <!-- <a class="btn" href="resume.pdf" download>Download Resume</a> -->
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container reveal">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-sub">A quick introduction</p>
+    <div class="about-grid">
+      <div>
+        <p style="color: var(--muted); margin-bottom: 14px;">
+          I'm an aspiring Software/Web Developer with an M.Tech in Computer Science and Engineering. I enjoy building functional, user-focused applications, from React front ends to Java back ends and deep learning projects in Python.
+        </p>
+        <p style="color: var(--muted);">
+          Through academic and industry internships I've developed strong problem-solving skills and a fast-learning, detail-oriented approach to new technologies. I'm especially interested in web development, DevOps, and machine learning &amp; AI.
+        </p>
+      </div>
+      <div class="card">
+        <div class="stat"><span>Location</span><span>Coimbatore, India</span></div>
+        <div class="stat"><span>Degree</span><span>M.Tech CSE</span></div>
+        <div class="stat"><span>CGPA</span><span>7.26</span></div>
+        <div class="stat"><span>Languages</span><span>English, Tamil</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container reveal">
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">Where I've worked and learned</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">01/2026 – 06/2026</div>
+        <h3>Intern</h3>
+        <div class="tl-org">Centre for Development of Advanced Computing (C-DAC), Chennai</div>
+        <ul>
+          <li>Contributed to a Marine Species Monitoring System, studying underwater deep-sea species data for tracking and detection.</li>
+          <li>Analysed species behaviour and movement patterns to support identification and classification workflows.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">06/2024 – 12/2024</div>
+        <h3>Full Stack Development Intern</h3>
+        <div class="tl-org">HUGE IT Solutions</div>
+        <ul>
+          <li>Built a Collaborative Study Notes Platform enabling users to create, organize, and edit notes in a shared, interactive environment.</li>
+          <li>Worked across the full stack to deliver a user-driven, responsive application.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container reveal">
+    <h2 class="section-title">Projects</h2>
+    <p class="section-sub">Things I've built</p>
+    <div class="grid">
+      <div class="card project">
+        <h3>Online Attendance &amp; Room Allocation System</h3>
+        <p>An application for automated room and seat allocation for internal examinations.</p>
+        <div class="chips"><span class="chip">React JS</span><span class="chip">JavaScript</span><span class="chip">CSS</span></div>
+      </div>
+      <div class="card project">
+        <h3>Lung Cancer Treatment Prediction</h3>
+        <p>A deep learning application that automates doctor prescription generation for lung cancer treatment using NLP and CNN techniques.</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Deep Learning</span><span class="chip">NLP</span><span class="chip">CNN</span></div>
+      </div>
+      <div class="card project">
+        <h3>Collaborative Study Notes Platform</h3>
+        <p>A shared, interactive platform to create, organize, and edit notes, built during my internship at HUGE IT Solutions.</p>
+        <div class="chips"><span class="chip">Full Stack</span><span class="chip">Responsive UI</span></div>
+      </div>
+      <div class="card project">
+        <h3>Marine Species Monitoring System</h3>
+        <p>Studied deep-sea species data for tracking, detection, behaviour analysis and classification at C-DAC Chennai.</p>
+        <div class="chips"><span class="chip">Data Analysis</span><span class="chip">Detection</span><span class="chip">Classification</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container reveal">
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-sub">Tools and technologies I work with</p>
+    <div class="grid">
+      <div class="card skill-card">
+        <h3>Web Development</h3>
+        <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">React JS</span></div>
+      </div>
+      <div class="card skill-card">
+        <h3>Programming &amp; Databases</h3>
+        <div class="chips"><span class="chip">Java</span><span class="chip">Python</span><span class="chip">MySQL</span></div>
+      </div>
+      <div class="card skill-card">
+        <h3>Design Tools</h3>
+        <div class="chips"><span class="chip">Figma</span><span class="chip">Canva</span></div>
+      </div>
+      <div class="card skill-card">
+        <h3>Areas of Interest</h3>
+        <div class="chips"><span class="chip">Web Development</span><span class="chip">DevOps</span><span class="chip">Machine Learning &amp; AI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container reveal">
+    <h2 class="section-title">Education</h2>
+    <p class="section-sub">Academic background</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2021 – 2026</div>
+        <h3>M.Tech, Computer Science and Engineering</h3>
+        <div class="tl-org">Sri Ramakrishna Engineering College, Coimbatore | CGPA: 7.26</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2021</div>
+        <h3>Higher Secondary Certificate (HSC)</h3>
+        <div class="tl-org">Sree Saravana Niketan Matriculation Higher Secondary School | 91.6%</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2019</div>
+        <h3>Secondary School (SSLC)</h3>
+        <div class="tl-org">AGN Matriculation Higher Secondary School | 93%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="container reveal">
+    <h2 class="section-title">Certifications &amp; Achievements</h2>
+    <p class="section-sub">Continuous learning</p>
+    <div class="cert-list">
+      <div class="cert"><span class="dot">✦</span><div>Boot Camp on Robotic Process Automation<small>NIELIT</small></div></div>
+      <div class="cert"><span class="dot">✦</span><div>AR/VR Foundations<small>Hopes College, Coimbatore</small></div></div>
+      <div class="cert"><span class="dot">✦</span><div>Workshop on Agentic AI<small>AICTE</small></div></div>
+      <div class="cert"><span class="dot">✦</span><div>Fundamentals of Deep Learning<small>NVIDIA, 02/2023</small></div></div>
+      <div class="cert"><span class="dot">✦</span><div>Programming Fundamentals using Python<small>Infosys Springboard, 04/2023</small></div></div>
+      <div class="cert"><span class="dot">✦</span><div>Foundations of Cyber Security<small>Industry Certification, 05/2023</small></div></div>
+      <div class="cert"><span class="dot">✦</span><div>What is Metaverse?<small>Coursera, 09/2023</small></div></div>
+      <div class="cert"><span class="dot">✦</span><div>Executive Member<small>Computer Society of India</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container reveal">
+    <div class="card contact-card">
+      <h2 class="section-title" style="margin-bottom:0">Let's Connect</h2>
+      <p>I'm looking for opportunities in software and web development. Feel free to reach out.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:balakrishnanelangovan07@gmail.com">✉ Email Me</a>
+        <a class="btn" href="https://linkedin.com/in/balakrishnan-elangovan-019b2b24b" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="tel:+916381117879">📞 +91 63811 17879</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">© <span id="year"></span> Balakrishnan Elangovan · Coimbatore, Tamil Nadu</div>
+</footer>
+
+<script>
+  // Theme toggle (remembers choice when storage is available)
+  const root = document.documentElement;
+  try {
+    const saved = localStorage.getItem("theme");
+    if (saved) root.setAttribute("data-theme", saved);
+  } catch (e) {}
+  document.getElementById("theme-toggle").addEventListener("click", () => {
+    const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+
+  // Mobile menu
+  const links = document.getElementById("nav-links");
+  document.getElementById("menu-btn").addEventListener("click", () => links.classList.toggle("open"));
+  links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => links.classList.remove("open")));
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
